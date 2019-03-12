@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Add Vagrant Insecure Key
+      authorized_key:
+        key: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+        user: vagrant
+        state: present
