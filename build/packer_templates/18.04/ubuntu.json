@@ -5,7 +5,7 @@
       "vm_name": "{{ user `name` }}",
       "type": "hyperv-iso",
       "iso_urls": [
-        "http://cdimage.ubuntu.com/releases/{{ user `ubuntu_version` }}/release/ubuntu-{{ user `ubuntu_release` }}-server-amd64.iso"
+        "{{ user `base_uri` }}/{{ user `ubuntu_version` }}/ubuntu-{{ user `ubuntu_release` }}-{{ user `ubuntu_os_type` }}-amd64.iso"
       ],
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
@@ -46,7 +46,7 @@
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_urls": [
-        "http://cdimage.ubuntu.com/releases/{{ user `ubuntu_version` }}/release/ubuntu-{{ user `ubuntu_release` }}-server-amd64.iso"
+        "{{ user `base_uri` }}/{{ user `ubuntu_version` }}/ubuntu-{{ user `ubuntu_release` }}-{{ user `ubuntu_os_type` }}-amd64.iso"
       ],
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_password": "{{ user `ssh_password` }}",
