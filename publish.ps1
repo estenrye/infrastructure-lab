@@ -52,39 +52,67 @@ $box_api = "${vagrant_api}/box/${vagrant_cloud_username}/${vagrant_box_name}"
 $token = ConvertTo-SecureString -String ${vagrant_cloud_token} -AsPlainText -Force
 if (${publish} -or ${all})
 {
-  $body = @{
-    box = @{
-      username = ${vagrant_cloud_username}
-      name = ${vagrant_box_name}
-      is_private = $false
-    }
-  } | ConvertTo-Json
+  $getBox = Invoke-WebRequest `
+              -UseBasicParsing `
+              -Uri "${vagrant_api}/box/${vagrant_cloud_username}/${vagrant_box_name}" `
+              -ContentType 'application/json' `
+              -Headers ${header} `
+              -Method Get `
+              -Authentication Bearer `
+              -Token ${token} `
+  
+  if (${getBox}.StatusCode -ne 200)
+  {
+    $body = @{
+      box = @{
+        username = ${vagrant_cloud_username}
+        name = ${vagrant_box_name}
+        is_private = $false
+      }
+    } | ConvertTo-Json
 
-  Invoke-RestMethod `
+    Invoke-RestMethod `
+      -UseBasicParsing `
+      -Uri "${vagrant_api}/boxes" `
+      -ContentType 'application/json' `
+      -Headers ${header} `
+      -Method Post `
+      -Authentication Bearer `
+      -Token ${token} `
+      -Body ${body}
+  }  
+
+  $getVersion = Invoke-WebRequest `
     -UseBasicParsing `
-    -Uri "${vagrant_api}/boxes" `
+    -Uri "${box_api}/version/${vagrant_box_version}" `
     -ContentType 'application/json' `
     -Headers ${header} `
-    -Method Post `
+    -Method Get `
     -Authentication Bearer `
     -Token ${token} `
     -Body ${body}
-  
+
   $body = @{
     version = @{
       version = ${vagrant_box_version}
     }
   } | ConvertTo-Json
 
-  Invoke-RestMethod `
-    -UseBasicParsing `
-    -Uri "${box_api}/versions" `
-    -ContentType 'application/json' `
-    -Headers ${header} `
-    -Method Post `
-    -Authentication Bearer `
-    -Token ${token} `
-    -Body ${body}
+  if (${getVersion}.StatusCode -ne 200)
+  {
+    Invoke-RestMethod `
+      -UseBasicParsing `
+      -Uri "${box_api}/versions" `
+      -ContentType 'application/json' `
+      -Headers ${header} `
+      -Method Post `
+      -Authentication Bearer `
+      -Token ${token} `
+      -Body ${body}
+  }
+
+  $provider = ($getVersion.Content | ConvertFrom-Json).providers `
+    | Where-Object { $_.name -eq ${vagrant_provider_type} }
   
   $body = @{
     provider = @{
@@ -93,12 +121,20 @@ if (${publish} -or ${all})
     }
   } | ConvertTo-Json
   
+  $method = 'Post'
+  $uri = "${box_api}/version/${vagrant_box_version}/providers"
+  if ($provider.Length -gt 0)
+  {
+    $method = 'Put'
+    $uri = "${box_api}/version/${vagrant_box_version}/provider/${vagrant_provider_type}"
+  }
+
   Invoke-RestMethod `
     -UseBasicParsing `
-    -Uri "${box_api}/version/${vagrant_box_version}/providers" `
+    -Uri $uri `
     -ContentType 'application/json' `
     -Headers ${header} `
-    -Method Post `
+    -Method ${method} `
     -Authentication Bearer `
     -Token ${token} `
     -Body ${body}
