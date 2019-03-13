@@ -60,6 +60,7 @@ if (${publish} -or ${all})
               -Method Get `
               -Authentication Bearer `
               -Token ${token} `
+              -ErrorAction SilentlyContinue
   
   if (${getBox}.StatusCode -ne 200)
   {
@@ -111,13 +112,14 @@ if (${publish} -or ${all})
       -Body ${body}
   }
 
-  $provider = ($getVersion.Content | ConvertFrom-Json).providers `
+  $provider = ($getVersion.Content `
+    | ConvertFrom-Json -ErrorAction SilentlyContinue).providers `
     | Where-Object { $_.name -eq ${vagrant_provider_type} }
   
   $body = @{
     provider = @{
       name = ${vagrant_provider_type}
-      uri = "${s3_endpoint}/${s3_box_path}"
+      url = "${s3_endpoint}/${s3_box_path}"
     }
   } | ConvertTo-Json
   
