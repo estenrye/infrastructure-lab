@@ -10,8 +10,8 @@
     "boot_command_initrd_location": "/initrd.gz",
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
-    "preseed_file_name": "18.04/preseed-virtualbox.cfg",
-    "hyperv_preseed_file_name": "18.04/preseed-hyperv.cfg",
+    "preseed_file_name": "18.04/preseed-virtualbox-desktop.cfg",
+    "hyperv_preseed_file_name": "18.04/preseed-hyperv-desktop.cfg",
     "hyperv_switch_name":"Internet",
     "disk_size": "51200",
     "headless": "false"
