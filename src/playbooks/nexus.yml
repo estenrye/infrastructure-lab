@@ -1,0 +1,11 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars_files:
+    - "/opt/ansible/vars/common.yml"
+  vars:
+    desktop: false
+  roles:
+    - rz.packer_init
+    - rz.docker
+    - rz.packer_complete

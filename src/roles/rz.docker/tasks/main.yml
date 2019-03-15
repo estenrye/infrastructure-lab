@@ -1,0 +1,171 @@
+---
+- name: Remove docker
+  package:
+    name: docker
+    state: absent
+
+- name: Remove docker-engine
+  package:
+    name: docker-engine
+    state: absent
+
+- name: Remove docker.io
+  package:
+    name: docker.io
+    state: absent
+
+- name: Install apt-transport-https
+  package:
+    name: apt-transport-https
+    state: present
+
+- name: Install ca-certificates
+  package:
+    name: ca-certificates
+    state: present
+
+- name: Install curl
+  package:
+    name: curl
+    state: present
+
+- name: Install software-properties-common
+  package:
+    name: software-properties-common
+    state: present
+
+- name: Get Docker's official GPG key
+  apt_key :
+    url: "{{docker_repository_key_url}}"
+    id: "{{docker_repository_key_id}}"
+
+- name: Add Docker CE Stable Repository
+  apt_repository:
+    repo: "{{docker_repository}}"
+    state: present
+
+- name: Install docker-ce
+  package:
+    name: "{{docker_package}}"
+    state: present
+
+- name: Ensure docker group is present
+  group:
+    gid: '1337'
+    name: docker
+    state: present
+    system: yes
+  notify: restart docker
+
+- name: Add user to docker group.
+  user:
+    name: "{{item}}"
+    groups: docker
+    append: yes
+  loop: "{{docker_users}}"
+
+- name: Install docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+    checksum: "{{docker_compose_checksum}}"
+
+- name: Install python-pip
+  package:
+    name:
+      - python-pip
+    state: present
+
+- name: Install docker python module.
+  pip:
+    name: 
+      - docker
+      - paramiko
+    state: present
+
+- name: Ensure docker swarm is present.
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_node_type == 'manager'
+    - docker_swarm_initial_manager is undefined or docker_swarm_initial_manager == hostname
+
+- name: SSH Fingerprint initial manager.
+  shell: "ssh-keyscan -H {{docker_swarm_initial_manager}}"
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+  register: ssh_fingerprint
+
+- name: Ensure .ssh directory exists
+  file:
+    path: /root/.ssh
+    state: directory
+  when: 
+    - docker.swarm.enabled
+  
+- name: Ensure known_hosts exists
+  copy:
+    content: "{{ssh_fingerprint.stdout}}"
+    dest: /root/.ssh/known_hosts
+  become: yes
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+
+- name: Deploy Private Docker Auth SSH key.
+  copy:
+      dest: /root/.ssh/id_rsa
+      content: "{{ lookup('file', 'id_rsa') }}"
+  become: yes
+  when:
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+
+- name: Deploy Public Docker Auth SSH Key
+  authorized_key:
+    user: "{{username}}"
+    key: "{{ lookup('file', 'id_rsa.pub') }}"
+    state: present
+  when:
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+
+- name: Get Swarm Join Tokens.
+  docker_swarm:
+    state: inspect
+    docker_host: "ssh://{{username}}@{{docker_swarm_initial_manager}}"
+  register: swarm_info
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+    - docker_swarm_initial_manager != hostname
+
+- name: Join Swarm As Manager Node.
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+    join_token: "{{swarm_info.swarm_facts.JoinTokens.Manager}}"
+    remote_addrs:
+     - "{{docker_swarm_initial_manager}}:2377"
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_node_type == 'manager'
+    - docker_swarm_initial_manager is defined
+    - docker_swarm_initial_manager != hostname
+
+- name: Join Swarm As Worker Node.
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+    join_token: "{{swarm_info.swarm_facts.JoinTokens.Worker}}"
+    remote_addrs:
+     - "{{docker_swarm_initial_manager}}:2377"
+  when: 
+    - docker_swarm_enabled
+    - docker_swarm_node_type == 'worker'
+    - docker_swarm_initial_manager is defined
+    - docker_swarm_initial_manager != hostname

@@ -1,0 +1,3 @@
+---
+vagrant_key_uri: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+desktop: false

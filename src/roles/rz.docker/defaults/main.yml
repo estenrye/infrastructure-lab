@@ -1,0 +1,15 @@
+---
+docker_compose_version: 1.23.1
+docker_compose_checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2"
+docker_repository_key_url: https://download.docker.com/linux/ubuntu/gpg
+docker_repository_key_id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+docker_version: 5:18.09.3~3-0~ubuntu-bionic
+docker_ubuntu_version: bionic
+docker_release_type: stable
+docker_repository: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{docker_ubuntu_version}} {{docker_release_type}}"
+docker_package: "docker-ce={{docker_version}}"
+docker_users:
+    - vagrant
+docker_swarm_enabled: false
+docker_swarm_node_type: manager
+docker_swarm_initial_manager: ''

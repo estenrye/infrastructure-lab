@@ -5,3 +5,4 @@ build/manifest.json
 build/manifest.json.lock
 bin
 .vagrant
+cache

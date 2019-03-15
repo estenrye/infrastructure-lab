@@ -14,5 +14,7 @@
     "hyperv_preseed_file_name": "18.04/preseed-hyperv.cfg",
     "hyperv_switch_name":"Internet",
     "disk_size": "51200",
-    "headless": "false"
+    "headless": "false",
+    "isDesktop":"false",
+    "playbook_file":"scripts/vagrant-playbook.yml"
 }

@@ -7,3 +7,42 @@
         key: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
         user: vagrant
         state: present
+      become: yes
+    - name: Add Vagrant to Sudoers
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%vagrant'
+        line: '%vagrant ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+      become: yes
+    - name: Disable daily apt unattended updates
+      lineinfile:
+        dest: /etc/apt/apt.conf.d/10periodic
+        state: present
+        regexp: '^APT::Periodic::Enable "0";'
+        line: 'APT::Periodic::Enable "0";'
+      become: yes
+    - name: Update and Upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: full
+      become: yes
+    - name: Install MATE Terminal
+      apt:
+        name: mate-terminal
+        state: latest
+      when: desktop
+      become: yes
+    - name: Remove Gnome Terminal
+      apt:
+        name: gnome-terminal
+        state: removed
+      when: desktop
+      become: yes
+    - name: Apt Autoremove and Update
+      apt:
+        autoremove: yes
+        update_cache: yes
+      become: yes
+      

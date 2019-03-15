@@ -1,0 +1,6 @@
+---
+- name: Apt Autoremove and Update
+  apt:
+    autoremove: yes
+    update_cache: yes
+  become: yes

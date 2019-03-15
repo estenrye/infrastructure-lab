@@ -109,9 +109,11 @@
     },
     {
       "type":"ansible-local",
-      "playbook_files":[
-        "scripts/vagrant-playbook.yml"
-      ]
+      "clean_staging_directory": true,
+      "playbook_dir": "../src",
+      "staging_directory": "/opt/ansible",
+      "extra_arguments":"--extra-vars \"desktop={{user `isDesktop`}}\"",
+      "playbook_file":"{{user `playbook_file`}}"
     },
     {
       "type": "shell",
