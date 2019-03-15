@@ -6,3 +6,4 @@ build/manifest.json.lock
 bin
 .vagrant
 cache
+nexus-vagrant

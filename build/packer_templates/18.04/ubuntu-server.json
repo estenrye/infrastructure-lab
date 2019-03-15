@@ -16,5 +16,6 @@
     "disk_size": "51200",
     "headless": "false",
     "isDesktop":"false",
+    "vagrantfile_template": "Vagrantfile-linux.template",
     "playbook_file":"scripts/vagrant-playbook.yml"
 }

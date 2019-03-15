@@ -2,8 +2,9 @@ param(
   $ubuntuVersion = '18.04',
   $varFile = 'ubuntu-server',
   $builderType = 'hyperv-iso',
-  $packerVersion = '1.3.3',
-  [Switch]$forcePackerDownload
+  $packerVersion = '1.3.5',
+  [Switch]$forcePackerDownload,
+  [Switch]$debug
 )
 
 $dir = Resolve-Path -Path "${PSScriptRoot}/build"
@@ -24,10 +25,23 @@ if (!(Test-Path $packerExe) -or $forcePackerDownload)
 }
 
 Push-Location ${dir}
-&$packerExe build `
-  -only="${builderType}" `
-  -force `
-  -var-file="packer_templates\${ubuntuVersion}\${varFile}.json" `
-  "packer_templates\${ubuntuVersion}\ubuntu.json"
+if ($debug)
+{
+  $env:PACKER_LOG = 1
+  &$packerExe build `
+    -only="${builderType}" `
+    -force `
+    -debug `
+    -var-file="packer_templates\${ubuntuVersion}\${varFile}.json" `
+    "packer_templates\${ubuntuVersion}\ubuntu.json"
+}
+else
+{
+  &$packerExe build `
+    -only="${builderType}" `
+    -force `
+    -var-file="packer_templates\${ubuntuVersion}\${varFile}.json" `
+    "packer_templates\${ubuntuVersion}\ubuntu.json"
+}
 
 Pop-Location

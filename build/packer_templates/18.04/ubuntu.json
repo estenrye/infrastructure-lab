@@ -96,12 +96,26 @@
         "boot<enter>"
       ],
       "http_directory": "http"
+    },
+    {
+      "type": "vagrant",
+      "communicator":"ssh",
+      "source_path": "{{ user `vagrant_box_name` }}",
+      "teardown_method": "{{user `teardown_method` }}",
+      "output_dir": "{{ user `name` }}-vagrant",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "skip_add":"true"
     }
   ],
   "provisioners": [
     {
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E bash -x '{{ .Path }}'",
+      "only":[
+        "hyperv-iso",
+        "virtualbox-iso"
+      ],
       "scripts": [
         "scripts/setup.sh",
         "scripts/ansible.sh"
@@ -118,6 +132,10 @@
     {
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -S -E bash -x '{{ .Path }}'",
+      "only":[
+        "hyperv-iso",
+        "virtualbox-iso"
+      ],
       "scripts": [
         "scripts/cleanup.sh"
       ]
@@ -128,7 +146,7 @@
       {
         "type": "vagrant",
         "compression_level": 9,
-        "vagrantfile_template": "Vagrantfile-linux.template",
+        "vagrantfile_template": "{{ user `vagrantfile_template` }}",
         "output": "{{ user `packer_images_output_dir` }}/{{ user `name` }}_{{ .Provider }}.box"
       },
       {
