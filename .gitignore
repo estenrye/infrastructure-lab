@@ -7,3 +7,4 @@ bin
 .vagrant
 cache
 nexus-vagrant
+*.retry
