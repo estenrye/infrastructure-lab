@@ -9,7 +9,7 @@ machines = {
     vmname: 'router.rz.lab',
     network: 'Default Switch',
     share: {
-      src: 'src',
+      source: 'src',
       target: '/opt/ansible'
     },
   },
@@ -21,8 +21,8 @@ machines = {
     vname: 'nexus',
     network: 'Default Switch',
     share: {
-      src: 'cache',
-      target: '/opt/nexus-data'
+      source: 'src',
+      target: '/opt/ansible'
     }
   }
 }
