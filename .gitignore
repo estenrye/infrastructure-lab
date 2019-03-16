@@ -8,3 +8,5 @@ bin
 cache
 nexus-vagrant
 *.retry
+src/ryezone-labs/**
+galaxy_roles
