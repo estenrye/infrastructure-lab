@@ -3,51 +3,62 @@
   package:
     name: docker
     state: absent
+  become: yes
 
 - name: Remove docker-engine
   package:
     name: docker-engine
     state: absent
+  become: yes
+  
 
 - name: Remove docker.io
   package:
     name: docker.io
     state: absent
-
+  become: yes
+  
 - name: Install apt-transport-https
   package:
     name: apt-transport-https
     state: present
-
+  become: yes
+  
 - name: Install ca-certificates
   package:
     name: ca-certificates
     state: present
+  become: yes
 
 - name: Install curl
   package:
     name: curl
     state: present
+  become: yes
 
 - name: Install software-properties-common
   package:
     name: software-properties-common
     state: present
+  become: yes
 
 - name: Get Docker's official GPG key
   apt_key :
     url: "{{docker_repository_key_url}}"
     id: "{{docker_repository_key_id}}"
+  become: yes
 
 - name: Add Docker CE Stable Repository
   apt_repository:
     repo: "{{docker_repository}}"
     state: present
+  become: yes
 
 - name: Install docker-ce
   package:
     name: "{{docker_package}}"
     state: present
+  become: yes
 
 - name: Ensure docker group is present
   group:
@@ -56,6 +67,7 @@
     state: present
     system: yes
   notify: restart docker
+  become: yes
 
 - name: Add user to docker group.
   user:
@@ -63,6 +75,7 @@
     groups: docker
     append: yes
   loop: "{{docker_users}}"
+  become: yes
 
 - name: Install docker-compose
   get_url:
@@ -70,12 +83,14 @@
     dest: /usr/local/bin/docker-compose
     mode: 0755
     checksum: "{{docker_compose_checksum}}"
+  become: yes
 
 - name: Install python-pip
   package:
     name:
       - python-pip
     state: present
+  become: yes
 
 - name: Install docker python module.
   pip:
@@ -83,6 +98,7 @@
       - docker
       - paramiko
     state: present
+  become: yes
 
 - name: Ensure docker swarm is present.
   docker_swarm:
@@ -92,6 +108,7 @@
     - docker_swarm_enabled
     - docker_swarm_node_type == 'manager'
     - docker_swarm_initial_manager is undefined or docker_swarm_initial_manager == hostname
+  become: yes
 
 - name: SSH Fingerprint initial manager.
   shell: "ssh-keyscan -H {{docker_swarm_initial_manager}}"
@@ -99,13 +116,16 @@
     - docker_swarm_enabled
     - docker_swarm_initial_manager is defined
   register: ssh_fingerprint
+  become: yes
 
 - name: Ensure .ssh directory exists
   file:
     path: /root/.ssh
     state: directory
   when: 
-    - docker.swarm.enabled
+    - docker_swarm_enabled
+    - docker_swarm_initial_manager is defined
+  become: yes
   
 - name: Ensure known_hosts exists
   copy:
@@ -133,6 +153,7 @@
   when:
     - docker_swarm_enabled
     - docker_swarm_initial_manager is defined
+  become: yes
 
 - name: Get Swarm Join Tokens.
   docker_swarm:
