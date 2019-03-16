@@ -124,7 +124,7 @@
     },
     {
       "type":"ansible-local",
-      "clean_staging_directory": true,
+      "clean_staging_directory": false,
       "playbook_dir": "../src",
       "staging_directory": "/opt/ansible",
       "extra_arguments":"--extra-vars \"desktop={{user `isDesktop`}}\"",
