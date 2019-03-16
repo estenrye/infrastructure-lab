@@ -12,7 +12,7 @@
   "ssh_password": "vagrant",
   "preseed_file_name": "18.04/preseed-virtualbox.cfg",
   "hyperv_preseed_file_name": "18.04/preseed-hyperv.cfg",
-  "hyperv_switch_name":"Internet",
+  "hyperv_switch_name":"Default Switch",
   "disk_size": "51200",
   "headless": "false",
   "isDesktop":"false",
