@@ -6,6 +6,6 @@
   vars:
     desktop: false
   roles:
-    - rz.packer_init
-    - rz.docker
-    - rz.packer_complete
+    - estenrye.packer_init
+    - estenrye.docker
+    - estenrye.packer_complete
