@@ -3,3 +3,4 @@ docker_compose_checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14
 docker_version: 5:18.09.3~3-0~ubuntu-bionic
 docker_ubuntu_version: bionic
 docker_release_type: stable
+ntpd_enabled: true

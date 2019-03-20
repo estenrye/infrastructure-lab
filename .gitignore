@@ -9,4 +9,5 @@ cache
 nexus-vagrant
 *.retry
 src/ryezone-labs/**
+src/roles/**
 galaxy_roles
