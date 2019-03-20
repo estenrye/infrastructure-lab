@@ -1,4 +1,6 @@
 # from galaxy
-- src: estenrye.packer_init
-- src: estenrye.docker
-- src: estenrye.packer_complete
+- src: ryezone_labs.packer_init
+- src: ryezone_labs.docker
+- src: ryezone_labs.packer_complete
+- src: ryezone_labs.dhcp
+- src: ryezone_labs.edge_firewall

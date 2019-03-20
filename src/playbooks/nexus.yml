@@ -6,6 +6,8 @@
   vars:
     desktop: false
   roles:
-    - estenrye.packer_init
-    - estenrye.docker
-    - estenrye.packer_complete
+    - ryezone_labs.packer_init
+    - ryezone_labs.docker
+    - ryezone_labs.dhcp
+    - ryezone_labs.edge_firewall
+    - ryezone_labs.packer_complete
