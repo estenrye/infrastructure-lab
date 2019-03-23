@@ -1,0 +1,27 @@
+ryezone_labs_external_dns:
+  - 1.1.1.1
+  - 1.0.0.1
+ryezone_labs_wanInterface: eth0
+ryezone_labs_lanInterface: eth1
+ryezone_labs_lanAddress: 10.100.10.1
+ryezone_labs_lanNetwork: 10.100.10.0
+ryezone_labs_lanNetmask: 255.255.255.0
+ryezone_labs_lanBroadcast: 10.100.10.255
+ryezone_labs_lanDhcpRangeStart: 10.100.10.100
+ryezone_labs_lanDhcpRangeEnd: 10.100.10.250
+ryezone_labs_top_level_domain: domain.local
+
+packer_init_desktop: false
+
+docker_compose_version: 1.23.1
+docker_compose_checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2"
+docker_version: 5:18.09.3~3-0~ubuntu-bionic
+docker_ubuntu_version: bionic
+docker_release_type: stable
+
+ntp_enabled: True
+ntp_timezone: Etc/UTC
+ntp_manage_config: True
+ntp_area: us
+ntp_servers: 
+  - "{{ ryezone_labs_lanAddress }}"

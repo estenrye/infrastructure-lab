@@ -1,0 +1,23 @@
+---
+- hosts: all
+  roles:
+    - ryezone_labs.packer_init
+    - ryezone_labs.ntp
+
+- hosts: router
+  roles:
+    - mrlesmithjr.netplan
+    - ryezone_labs.dhcp
+    - ryezone_labs.edge_firewall
+
+- hosts: dns
+  roles:
+    - ryezone_labs.dns
+
+- hosts: docker
+  roles:
+    - ryezone_labs.docker
+
+- hosts: all
+  roles:
+    - ryezone_labs.packer_complete

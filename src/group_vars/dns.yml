@@ -1,0 +1,15 @@
+---
+dns_bind_zones:
+  - name: "{{ ryezone_labs_top_level_domain }}"
+    TTL: 604800
+    serial: 5
+    refresh: 604800
+    retry: 86400
+    expire: 2419200
+    negative_cache_ttl: 604800
+    nameserver: "router.{{ ryezone_labs_top_level_domain }}"
+    records:
+      - name: router
+        class: IN
+        type: A
+        target: "{{ ryezone_labs_lanAddress }}"

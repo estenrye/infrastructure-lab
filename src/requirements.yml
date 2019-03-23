@@ -5,4 +5,5 @@
 - src: ryezone_labs.dhcp
 - src: ryezone_labs.dns
 - src: ryezone_labs.edge_firewall
+- src: ryezone_labs.ntp
 - src: mrlesmithjr.netplan

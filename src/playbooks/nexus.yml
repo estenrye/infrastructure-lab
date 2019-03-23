@@ -12,4 +12,4 @@
     - ryezone_labs.dns
     - ryezone_labs.edge_firewall
     - ryezone_labs.packer_complete
-    - ntp
+    - ryezone_labs.ntp

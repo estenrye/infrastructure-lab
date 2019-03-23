@@ -2,20 +2,21 @@
 vagrant_api_version = '2'
 
 machines = {
-  devrouter: {
-    box: 'estenrye/ubuntu-desktop',
+  router: {
+    box: 'estenrye/ubuntu-server-1804',
+    box_version: '1804.20190315.0',
     cpus: 2,
     mem: 2048,
-    vmname: 'router.rz.lab',
+    vmname: 'router',
     network: 'Default Switch',
     share: {
       source: 'src',
-      target: '/opt/ansible'
+      target: '/opt/ansible',
     },
   },
   nexus: {
     box: 'estenrye/ubuntu-server-1804',
-    box_version: "1804.20190315.0",
+    box_version: '1804.20190315.0',
     cpus: 2,
     mem: 2048,
     vname: 'nexus',

@@ -1,0 +1,14 @@
+[lab]
+router
+
+[all:children]
+lab
+
+[dns:children]
+lab
+
+[ntpd:children]
+lab
+
+[router:children]
+lab
