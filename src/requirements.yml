@@ -1,9 +1,12 @@
 # from galaxy
-- src: ryezone_labs.packer_init
-- src: ryezone_labs.docker
-- src: ryezone_labs.packer_complete
+- src: mrlesmithjr.netplan
+- src: ryezone_labs.ansible_control_server
 - src: ryezone_labs.dhcp
 - src: ryezone_labs.dns
+- src: ryezone_labs.docker
 - src: ryezone_labs.edge_firewall
+- src: ryezone_labs.hosts
 - src: ryezone_labs.ntp
-- src: mrlesmithjr.netplan
+- src: ryezone_labs.packer_complete
+- src: ryezone_labs.packer_init
+- src: ryezone_labs.ssh

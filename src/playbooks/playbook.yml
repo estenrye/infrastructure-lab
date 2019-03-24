@@ -1,14 +1,25 @@
 ---
+- hosts: 127.0.0.1
+  connection: local
+  roles:
+    - ryezone_labs.hosts
+
+- hosts: acs
+  roles:
+    - ryezone_labs.ansible_control_server
+
 - hosts: all
   roles:
+    - ryezone_labs.ssh
     - ryezone_labs.packer_init
     - ryezone_labs.ntp
 
-- hosts: router
+- hosts: gateway
   roles:
     - mrlesmithjr.netplan
     - ryezone_labs.dhcp
     - ryezone_labs.edge_firewall
+  become: yes
 
 - hosts: dns
   roles:

@@ -1,6 +1,9 @@
 [lab]
 router
 
+[acs:children]
+lab
+
 [all:children]
 lab
 
@@ -10,5 +13,8 @@ lab
 [ntpd:children]
 lab
 
-[router:children]
+[gateway:children]
+lab
+
+[docker:children]
 lab
