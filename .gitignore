@@ -11,3 +11,4 @@ nexus-vagrant
 src/ryezone-labs/**
 src/roles/**
 galaxy_roles
+src/certificates
