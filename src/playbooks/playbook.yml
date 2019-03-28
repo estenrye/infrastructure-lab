@@ -30,6 +30,10 @@
   roles:
     - ryezone_labs.docker
 
+- hosts: dc
+  roles:
+    - ryezone_labs.domain_controller_slapd
+
 - hosts: all
   roles:
     - ryezone_labs.packer_complete

@@ -23,13 +23,14 @@ ryezone_labs_lanNetmask: 255.255.255.0
 ryezone_labs_lanBroadcast: 10.100.10.255
 ryezone_labs_lanDhcpRangeStart: 10.100.10.100
 ryezone_labs_lanDhcpRangeEnd: 10.100.10.250
-ryezone_labs_top_level_domain: domain.local
-
+ryezone_labs_domain_suffix: local
+ryezone_labs_domain_organization: domain
+ryezone_labs_top_level_domain: "{{ ryezone_labs_domain_organization }}.{{ ryezone_labs_domain_suffix }}"
 packer_init_desktop: false
 
 docker_compose_version: 1.23.1
 docker_compose_checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2"
-docker_version: 5:18.09.3~3-0~ubuntu-bionic
+docker_version: 5:18.09.4~3-0~ubuntu-bionic
 docker_ubuntu_version: bionic
 docker_release_type: stable
 

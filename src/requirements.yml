@@ -4,6 +4,7 @@
 - src: ryezone_labs.dhcp
 - src: ryezone_labs.dns
 - src: ryezone_labs.docker
+- src: ryezone_labs.domain_controller_slapd
 - src: ryezone_labs.edge_firewall
 - src: ryezone_labs.hosts
 - src: ryezone_labs.ntp
