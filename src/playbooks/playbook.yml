@@ -36,4 +36,5 @@
 
 - hosts: all
   roles:
+    - ryezone_labs.sssd
     - ryezone_labs.packer_complete
