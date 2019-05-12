@@ -2,7 +2,7 @@ param(
   $ubuntuVersion = '18.04',
   $varFile = 'ubuntu-server',
   $builderType = 'hyperv-iso',
-  $packerVersion = '1.3.5',
+  $packerVersion = '1.4.0',
   [Switch]$forcePackerDownload,
   [Switch]$debug
 )

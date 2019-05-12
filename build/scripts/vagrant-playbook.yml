@@ -32,13 +32,13 @@
       apt:
         name: mate-terminal
         state: latest
-      when: desktop
+      when: template_name == "ubuntu-1804-desktop"
       become: yes
     - name: Remove Gnome Terminal
       apt:
         name: gnome-terminal
         state: removed
-      when: desktop
+      when: template_name == "ubuntu-1804-desktop"
       become: yes
     - name: Apt Autoremove and Update
       apt:
