@@ -1,0 +1,29 @@
+{
+    "builders": [
+        {
+            "type":"vagrant",
+            "communicator":"ssh",
+            "source_path":"{{user `box`}}",
+            "box_version":"{{user `box_version`}}",
+            "provider":"{{user `provider`}}",
+            "output_dir": "{{user `name`}}-vagrant-{{user `provider`}}",
+            "skip_add":"{{user `skip_add`}}",
+            "teardown_method":"destroy"
+        }
+    ],
+    "provisioners": [
+        {
+            "type":"ansible-local",
+            "clean_staging_directory": false,
+            "staging_directory": "/opt/ansible",
+            "playbook_file":"{{user `playbook_file`}}",
+            "galaxy_file":"{{user `galaxy_file`}}",
+            "inventory_file":"{{user `inventory_file`}}",
+            "group_vars":"{{user `group_vars`}}",
+            "extra_arguments": [
+              "--extra-vars \"template_name={{user `name`}} hosts_hostname={{user `name`}}\"",
+              "--limit {{user `name`}}"
+            ]
+        }
+    ]
+}
