@@ -7,5 +7,6 @@
     "galaxy_file":"src/requirements.yml",
     "inventory_file":"src/inventory",
     "group_vars":"src/group_vars",
-    "skip_add":"true"
+    "skip_add":"true",
+    "vagrantfile_template":"build/packer_templates/router/VagrantfileTemplate"
 }
