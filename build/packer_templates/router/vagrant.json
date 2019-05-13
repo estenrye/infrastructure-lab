@@ -16,7 +16,6 @@
         {
             "type":"ansible-local",
             "clean_staging_directory": false,
-            "staging_directory": "/opt/ansible",
             "playbook_file":"{{user `playbook_file`}}",
             "galaxy_file":"{{user `galaxy_file`}}",
             "inventory_file":"{{user `inventory_file`}}",
