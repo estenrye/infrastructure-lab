@@ -1,28 +1,23 @@
 [CmdletBinding()]
 param(
-  $vagrant_box_name = $env:VAGRANT_BOX_NAME,
-  $vagrant_box_version = $(if([string]::IsNullOrWhiteSpace($env:VAGRANT_BOX_VERSION))
-                           { Get-Date -Format "yyyy.MM.dd" }
-                           else
-                           { $env:VAGRANT_BOX_VERSION }
-                          ),
-  $vagrant_provider_type = $(if([string]::IsNullOrWhiteSpace($env:VAGRANT_PROVIDER_TYPE))
-                             { 'hyperv' }
-                             else
-                             { $env:VAGRANT_PROVIDER_TYPE }
-                            ),
-  $vagrant_cloud_token = $env:VAGRANT_CLOUD_TOKEN,
-  $vagrant_cloud_username = $env:VAGRANT_CLOUD_USERNAME,
-  [switch]$publish,
-  [switch]$upload,
-  [switch]$release,
+  [Parameter(Mandatory)]
+  [string]$artifactName,
   [switch]$all,
-  $vagrant_api = 'https://app.vagrantup.com/api/v1',
-  $s3_endpoint = 'https://s3.wasabisys.com',
-  $s3_bucket = 'vagrant-cloud',
-  $s3_profile = 'wasabi',
-  $jq_version = '1.6'
+  [switch]$upload,
+  [switch]$publish,
+  [switch]$release,
+  [string]$vagrant_cloud_token = $env:VAGRANT_CLOUD_TOKEN
 )
+
+Push-Location ${PSScriptRoot}
+
+$manifest = Get-Content "build/images/${artifactName}/manifest.json" -Raw | ConvertFrom-Json
+$data = $manifest.builds[0].custom_data
+$vagrant_box_name = $data.vagrant_box_name
+$vagrant_box_version = $data.vagrant_box_version
+$vagrant_provider_type = $data.vagrant_provider_type
+$vagrant_cloud_username = $data.vagrant_cloud_username
+$vagrant_api = $data.vagrant_cloud_endpoint
 
 Write-Debug $(@{
   vagrant_box_name = $vagrant_box_name
@@ -34,28 +29,15 @@ Write-Debug $(@{
   upload = $upload
   release = $release
   vagrant_api = $vagrant_api
-  s3_endpoint = $s3_endpoint
-  s3_bucket = $s3_bucket
-  s3_profile = $s3_profile
-  jq_version = $jq_version
+  s3_endpoint = $data.s3_endpoint
+  s3_bucket = $data.s3_bucket
+  s3_profile = $data.s3_profile
   powershell_version = $PSVersionTable.PSVersion.ToString()
 } | ConvertTo-Json)
-
-if([string]::IsNullOrWhiteSpace($vagrant_box_name))
-{ 
-  Write-Error "vagrant_box_name cannot be null or whitespace."
-  return -1
-}
 
 if ([string]::IsNullOrWhiteSpace($vagrant_cloud_token))
 {
   Write-Error "vagrant_cloud_token cannot be null or whitespace"
-  return -1
-}
-
-if ([string]::IsNullOrWhiteSpace($env:VAGRANT_CLOUD_USERNAME))
-{
-  Write-Error "vagrant_cloud_username cannot be null or whitespace."
   return -1
 }
 
@@ -67,27 +49,19 @@ if ($PSVersionTable.PSVersion.Major -lt 6)
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$dir = Resolve-Path -Path "${PSScriptRoot}/build"
-Push-Location ${dir}
-
-$manifest = Get-Content manifest.json -Raw | ConvertFrom-Json
-$box = $(${manifest}.builds | `
-         Where-Object { $_.artifact_id -eq ${vagrant_provider_type} })[0]
-$boxfile = ${box}.files[0].name
-
 $s3_box_path = "${s3_bucket}/${vagrant_box_name}/${vagrant_provider_type}-${vagrant_box_version}.box"
 
 if (${upload} -or ${all})
 {
   Write-Debug $(@{
-    boxfile = "images/${boxfile}"
-    s3Path = "s3://${s3_box_path}"
+    boxfile = $data.box_src_path
+    s3Path = $data.s3_box_path
   } | ConvertTo-Json)
   aws s3 cp `
-    "images/${boxfile}" `
-    "s3://${s3_box_path}" `
-    --endpoint-url=${s3_endpoint} `
-    --profile ${s3_profile}
+    $data.box_src_path `
+    $data.s3_box_path `
+    --endpoint-url=$($data.s3_endpoint) `
+    --profile $($data.s3_profile)
 }
 
 $box_api = "${vagrant_api}/box/${vagrant_cloud_username}/${vagrant_box_name}"
@@ -193,7 +167,7 @@ if (${publish} -or ${all})
   $body = @{
     provider = @{
       name = ${vagrant_provider_type}
-      url = "${s3_endpoint}/${s3_box_path}"
+      url = $data.s3_box_path.Replace("s3:/", $data.s3_endpoint)
     }
   } | ConvertTo-Json
   

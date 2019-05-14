@@ -1,12 +1,12 @@
 {
     "name":"router",
+    "version": "1.0",
     "box":"estenrye/ubuntu-server-1804",
     "box_version":"1804.20190512.0",
     "provider":"hyperv",
-    "playbook_file":"src/playbooks/playbook.yml",
-    "galaxy_file":"src/requirements.yml",
+    "playbook_file":"build/packer_templates/lab/router/router.yml",
+    "galaxy_file":"build/packer_templates/lab/router/router.requirements.yml",
     "inventory_file":"src/inventory",
     "group_vars":"src/group_vars",
-    "skip_add":"true",
-    "vagrantfile_template":"build/packer_templates/router/VagrantfileTemplate"
+    "skip_add":"true"
 }

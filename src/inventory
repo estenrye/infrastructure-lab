@@ -1,4 +1,7 @@
 [lab]
+testall
+
+[edge_gateway]
 router
 
 [acs:children]
@@ -6,15 +9,18 @@ lab
 
 [all:children]
 lab
+edge_gateway
 
 [dns:children]
 lab
+edge_gateway
 
 [ntpd:children]
 lab
 
 [gateway:children]
 lab
+edge_gateway
 
 [docker:children]
 lab

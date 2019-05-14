@@ -1,13 +1,7 @@
 ---
 ryezone_labs_provision_user: vagrant
-ansible_ssh_user: "{{ ryezone_labs_provision_user }}"
-ansible_ssh_pass: !vault |
-                  $ANSIBLE_VAULT;1.1;AES256
-                  30626534353839393338396434383932323835356132653532363033383335633136613539656532
-                  6235333436336437343638626630373564353465373037380a373136336634386264343562653131
-                  31643431333965623465613866653634396466633630356531376535396261323262313332623264
-                  3639653565396237630a663931613035353061653935323865316438393565396235346239326665
-                  6665
+ansible_ssh_user: vagrant
+ansible_ssh_pass: vagrant
 
 ansible_ssh_private_key_file: /opt/.ssh/id_rsa
 ryezone_labs_public_key_path: /opt/.ssh/id_rsa.pub

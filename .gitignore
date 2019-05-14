@@ -1,5 +1,5 @@
 build/images
-build/packer_cache
+packer_cache
 build/ubuntu-1804-server-hyperv
 build/manifest.json
 build/manifest.json.lock

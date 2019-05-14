@@ -3,29 +3,21 @@ vagrant_api_version = '2'
 
 machines = {
   router: {
-    box: 'estenrye/ubuntu-server-1804',
-    box_version: '1804.20190315.0',
+    box: 'estenrye/lab-router',
+    box_version: '1.0.20190514.054538',
     cpus: 2,
     mem: 2048,
     vmname: 'router',
     network: 'Default Switch',
-    share: {
-      source: 'src',
-      target: '/opt/ansible',
-    },
   },
-  nexus: {
+  test: {
     box: 'estenrye/ubuntu-server-1804',
-    box_version: '1804.20190315.0',
+    box_version: '1804.20190512.0',
     cpus: 2,
     mem: 2048,
-    vname: 'nexus',
-    network: 'Default Switch',
-    share: {
-      source: 'src',
-      target: '/opt/ansible'
-    }
-  }
+    vmname: 'test',
+    network: 'Private'
+  },
 }
 
 Vagrant.configure(vagrant_api_version) do |config|

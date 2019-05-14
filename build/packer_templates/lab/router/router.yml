@@ -1,0 +1,22 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  roles:
+    - ryezone_labs.hosts
+    - ryezone_labs.ssh
+    - ryezone_labs.ntp
+
+- hosts: gateway
+  roles:
+    - mrlesmithjr.netplan
+    - ryezone_labs.dhcp
+    - ryezone_labs.edge_firewall
+  become: yes
+
+- hosts: dns
+  roles:
+    - ryezone_labs.dns
+
+- hosts: all
+  roles:
+    - ryezone_labs.packer_complete
