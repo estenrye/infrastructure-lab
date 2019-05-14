@@ -37,19 +37,17 @@ Write-Debug $(@{
 
 if ([string]::IsNullOrWhiteSpace($vagrant_cloud_token))
 {
-  Write-Error "vagrant_cloud_token cannot be null or whitespace"
+  Write-Error "vagrant_cloud_token cannot be null or whitespace.`nThis value can be set by supplying the -vagrant_cloud_token argument or by setting $env:VAGRANT_CLOUD_TOKEN"
   return -1
 }
 
 if ($PSVersionTable.PSVersion.Major -lt 6)
 {
-  Write-Error "Powershell version must be 6 or higher."
+  Write-Error "This script uses Powershell Core Cmdlets.  Powershell Major Version must be 6 or higher."
   return -1
 }
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-$s3_box_path = "${s3_bucket}/${vagrant_box_name}/${vagrant_provider_type}-${vagrant_box_version}.box"
 
 if (${upload} -or ${all})
 {

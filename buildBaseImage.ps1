@@ -7,11 +7,11 @@ param(
   [Switch]$debug
 )
 
-$dir = Resolve-Path -Path "${PSScriptRoot}/build"
-$packerArchive = "${PSScriptRoot}/bin/packer.zip"
-$packerExe = "${PSScriptRoot}/bin/packer.exe"
+Push-Location $PSScriptRoot
+$packerArchive = "./bin/packer.zip"
+$packerExe = "./bin/packer.exe"
 
-mkdir -Force "${PSScriptRoot}/bin" | Out-Null
+mkdir -Force "./bin" | Out-Null
 
 if (!(Test-Path $packerExe) -or $forcePackerDownload)
 {
@@ -21,7 +21,7 @@ if (!(Test-Path $packerExe) -or $forcePackerDownload)
     -Uri "https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_windows_amd64.zip" `
     -OutFile ${packerArchive}
   
-  Expand-Archive -Path ${packerArchive} -DestinationPath "${PSScriptRoot}/bin" -Force
+  Expand-Archive -Path ${packerArchive} -DestinationPath "./bin" -Force
 }
 
 Push-Location ${dir}
@@ -32,16 +32,16 @@ if ($debug)
     -only="${builderType}" `
     -force `
     -debug `
-    -var-file="packer_templates\${ubuntuVersion}\${varFile}.json" `
-    "packer_templates\${ubuntuVersion}\ubuntu.json"
+    -var-file="build/packer_templates/${ubuntuVersion}/${varFile}.json" `
+    "build/packer_templates/${ubuntuVersion}/ubuntu.json"
 }
 else
 {
   &$packerExe build `
     -only="${builderType}" `
     -force `
-    -var-file="packer_templates\${ubuntuVersion}\${varFile}.json" `
-    "packer_templates\${ubuntuVersion}\ubuntu.json"
+    -var-file="build/packer_templates/${ubuntuVersion}/${varFile}.json" `
+    "build/packer_templates/${ubuntuVersion}/ubuntu.json"
 }
 
 Pop-Location
