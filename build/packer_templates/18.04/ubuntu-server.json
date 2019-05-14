@@ -1,6 +1,6 @@
 {
     "name": "ubuntu-1804-server",
-    "packer_images_output_dir": "images",
+    "version":"1804",
     "cpus": "2",
     "memory": "4096",
     "iso_uri": "http://cdimage.ubuntu.com/releases/18.04.2/release/ubuntu-18.04.2-server-amd64.iso",
@@ -15,6 +15,6 @@
     "hyperv_switch_name":"Internet",
     "disk_size": "51200",
     "headless": "false",
-    "vagrantfile_template": "Vagrantfile-linux.template",
-    "playbook_file":"scripts/vagrant-playbook.yml"
+    "vagrantfile_template": "build/Vagrantfile-linux.template",
+    "playbook_file":"build/scripts/vagrant-playbook.yml"
 }

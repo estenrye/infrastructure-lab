@@ -12,7 +12,7 @@
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_password": "{{ user `ssh_password` }}",
       "headless": "{{ user `headless` }}",
-      "output_directory": "{{ user `name` }}-hyperv",
+      "output_directory": "build/images/{{user `name`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       
       "cpus":"{{ user `cpus` }}",
@@ -37,7 +37,7 @@
         "initrd {{ user `boot_command_initrd_location` }}<enter>",
         "boot<enter>"
       ],
-      "http_directory": "http"
+      "http_directory": "build/http"
     },
     {
       "vm_name": "{{ user `name` }}",
@@ -52,7 +52,7 @@
       "ssh_password": "{{ user `ssh_password` }}",
       "ssh_wait_timeout": "60m",
       "headless": "{{ user `headless` }}",
-      "output_directory": "{{ user `name` }}-virtualbox-iso",
+      "output_directory": "build/images/{{user `name`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
       "hard_drive_interface": "sata",
@@ -95,7 +95,7 @@
         "keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>",
         "boot<enter>"
       ],
-      "http_directory": "http"
+      "http_directory": "build/http"
     },
     {
       "type": "vagrant",
@@ -118,8 +118,8 @@
         "virtualbox-iso"
       ],
       "scripts": [
-        "scripts/setup.sh",
-        "scripts/ansible.sh"
+        "build/scripts/setup.sh",
+        "build/scripts/ansible.sh"
       ]
     },
     {
@@ -139,7 +139,7 @@
         "virtualbox-iso"
       ],
       "scripts": [
-        "scripts/cleanup.sh"
+        "build/scripts/cleanup.sh"
       ]
     }
   ],
@@ -149,13 +149,24 @@
         "type": "vagrant",
         "compression_level": 9,
         "vagrantfile_template": "{{ user `vagrantfile_template` }}",
-        "output": "{{ user `packer_images_output_dir` }}/{{ user `name` }}_{{ .Provider }}.box"
+        "output": "build/images/{{user `name`}}/{{ user `name` }}_{{ .Provider }}.box"
       },
       {
         "type": "manifest",
-        "output": "manifest.json",
-        "strip_path": true
+        "output": "build/images/{{user `name`}}/manifest.json",
+        "strip_path": true,
+        "custom_data": {
+          "vagrant_box_name": "{{user `name`}}",
+          "vagrant_box_version": "{{user `version`}}.{{isotime \"20060102.150405\"}}",
+          "vagrant_provider_type":"{{ .Provider }}",
+          "vagrant_cloud_username":"estenrye",
+          "vagrant_cloud_endpoint":"https://app.vagrantup.com/api/v1",
+          "s3_endpoint":"https://s3.wasabisys.com",
+          "s3_profile":"wasabi",
+          "box_src_path":"build/images/{{user `name`}}/{{ user `name` }}_{{ .Provider }}.box",
+          "s3_box_path": "s3://vagrant-cloud/{{user `name`}}/{{ .Provider }}-{{user `version`}}.{{isotime \"20060102.150405\"}}.box"
+        }
       }
-    ]
+  ]
   ]
 }
