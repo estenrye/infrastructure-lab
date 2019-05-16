@@ -1,11 +1,8 @@
 # from galaxy
-- src: mrlesmithjr.netplan
-- src: ryezone_labs.dhcp
-- src: ryezone_labs.dns
-- src: ryezone_labs.edge_firewall
 - src: ryezone_labs.hosts
 - src: ryezone_labs.ntp
 - src: ryezone_labs.packer_complete
 - src: ryezone_labs.packer_init
+- src: ryezone_labs.domain_controller_slapd
 - src: ryezone_labs.ssh
 - src: ryezone_labs.sssd

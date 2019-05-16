@@ -8,6 +8,10 @@ if ($DebugPreference)
 {
     $env:PACKER_LOG=1
 }
+else
+{
+    $env:PACKER_LOG=0
+}
 
 Push-Location ${PSScriptRoot}
 .\bin\packer.exe `

@@ -7,16 +7,10 @@
     - ryezone_labs.ssh
     - ryezone_labs.ntp
 
-- hosts: gateway
+- hosts: domain_controllers
   roles:
-    - mrlesmithjr.netplan
-    - ryezone_labs.dhcp
-    - ryezone_labs.edge_firewall
+    - ryezone_labs.domain_controller_slapd
   become: yes
-
-- hosts: dns
-  roles:
-    - ryezone_labs.dns
 
 - hosts: all
   roles:

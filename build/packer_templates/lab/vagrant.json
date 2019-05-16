@@ -8,7 +8,7 @@
             "provider":"{{user `provider`}}",
             "output_dir": "build/images/{{user `name`}}",
             "skip_add":"{{user `skip_add`}}",
-            "teardown_method":"destroy",
+            "teardown_method":"halt",
             "template":"build/packer_templates/lab/VagrantfileTemplate"
         }
     ],
