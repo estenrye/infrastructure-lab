@@ -4,12 +4,16 @@ testall
 [edge_gateway]
 router
 
+[domain_controller]
+dc
+
 [acs:children]
 lab
 
 [all:children]
 lab
 edge_gateway
+domain_controller
 
 [dns:children]
 lab
@@ -17,6 +21,7 @@ edge_gateway
 
 [ntpd:children]
 lab
+edge_gateway
 
 [gateway:children]
 lab
@@ -25,5 +30,6 @@ edge_gateway
 [docker:children]
 lab
 
-[dc:children]
+[domain_controllers:children]
 lab
+domain_controller

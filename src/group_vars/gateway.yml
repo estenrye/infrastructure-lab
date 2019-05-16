@@ -29,6 +29,9 @@ dhcp_hosts:
   - name: router
     mac_address: 00:35:10:00:00:01
     fixed_address: "{{ ryezone_labs_lanAddress }}"
+  - name: dc
+    mac_address: 00:35:10:00:00:02
+    fixed_address: "{{ ryezone_labs_dcAddress }}"
 
 edge_firewall_open_incoming_tcp_ports:
   - cidr: 172.16.0.0/12

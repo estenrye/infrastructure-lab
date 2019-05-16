@@ -13,3 +13,7 @@ dns_bind_zones:
         class: IN
         type: A
         target: "{{ ryezone_labs_lanAddress }}"
+      - name: dc
+        class: IN
+        type: A
+        target: "{{ ryezone_labs_dcAddress }}"

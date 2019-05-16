@@ -4,6 +4,11 @@ param(
     [string]$machineType
 )
 
+if ($DebugPreference)
+{
+    $env:PACKER_LOG=1
+}
+
 Push-Location ${PSScriptRoot}
 .\bin\packer.exe `
     build `
