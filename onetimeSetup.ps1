@@ -20,8 +20,7 @@ aws configure set s3api.endpoint_url $endpointUrl --profile $profile
 
 aws s3api create-bucket `
     --bucket $bucketName `
-    --profile $profile `
-    --endpoint-url $endpointUrl
+    --profile $profile
 
 @{
     Version = '2012-10-17'
@@ -47,7 +46,6 @@ aws s3api create-bucket `
 aws s3api put-bucket-policy `
     --bucket $bucketName `
     --profile $profile `
-    --endpoint-url $endpointUrl `
     --policy file://$PSScriptRoot/policy.json
 
 Remove-Item $PSScriptRoot/policy.json
