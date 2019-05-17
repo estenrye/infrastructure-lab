@@ -41,7 +41,8 @@ aws s3api create-bucket `
             )
         }
     )
-} | ConvertTo-Json -Depth 4 | Out-File $PSScriptRoot/policy.json -Encoding utf8 -Force
+} | ConvertTo-Json -Depth 4 `
+  | Out-File $PSScriptRoot/policy.json -Encoding utf8 -Force
 
 aws s3api put-bucket-policy `
     --bucket $bucketName `
