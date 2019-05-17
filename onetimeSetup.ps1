@@ -2,6 +2,8 @@
 param(
     [string]$aws_access_key_id,
     [string]$aws_secret_access_key,
+    [string]$vagrant_cloud_username,
+    [string]$vagrant_cloud_token,
     [string]$profile = 'wasabi',
     [string]$region = 'us-east-1',
     [string]$bucketName = 'rz-test-bucket',
@@ -50,3 +52,6 @@ aws s3api put-bucket-policy `
     --policy file://$PSScriptRoot/policy.json
 
 Remove-Item $PSScriptRoot/policy.json
+
+[System.Environment]::SetEnvironmentVariable('VAGRANT_CLOUD_TOKEN', $vagrant_cloud_token, 'user')
+[System.Environment]::SetEnvironmentVariable('VAGRANT_CLOUD_USERNAME', $vagrant_cloud_username, 'user')
