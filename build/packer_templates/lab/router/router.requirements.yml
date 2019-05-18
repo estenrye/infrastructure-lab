@@ -6,6 +6,5 @@
 - src: ryezone_labs.hosts
 - src: ryezone_labs.ntp
 - src: ryezone_labs.packer_complete
-- src: ryezone_labs.packer_init
 - src: ryezone_labs.ssh
 - src: ryezone_labs.sssd
