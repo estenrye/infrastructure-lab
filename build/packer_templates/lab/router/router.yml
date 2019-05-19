@@ -4,6 +4,7 @@
     - ryezone_labs.hosts
     - ryezone_labs.ssh
     - ryezone_labs.ntp
+    - ryezone_labs.trusted_certificates
 
 - hosts: gateway
   roles:

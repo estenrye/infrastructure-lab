@@ -1,4 +1,5 @@
 ---
+dns_daemon_enabled: true
 dns_bind_zones:
   - name: "{{ ryezone_labs_top_level_domain }}"
     TTL: 604800

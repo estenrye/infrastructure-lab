@@ -14,6 +14,6 @@ vagrant halt router
 Add-VMNetworkAdapter -VMName router -SwitchName Private -Name LAN
 Start-VM router
 
-vagrant up test
+vagrant up dc
 
 Pop-Location

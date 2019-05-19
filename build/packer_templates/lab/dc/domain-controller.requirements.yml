@@ -6,3 +6,4 @@
 - src: ryezone_labs.domain_controller_slapd
 - src: ryezone_labs.ssh
 - src: ryezone_labs.sssd
+- src: ryezone_labs.trusted_certificates

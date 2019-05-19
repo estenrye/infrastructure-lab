@@ -58,7 +58,6 @@ if (${upload} -or ${all})
   aws s3 cp `
     $data.box_src_path `
     $data.s3_box_path `
-    --endpoint-url=$($data.s3_endpoint) `
     --profile $($data.s3_profile)
 }
 

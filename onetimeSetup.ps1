@@ -21,6 +21,10 @@ aws configure set s3.endpoint_url $endpointUrl --profile $profile
 aws configure set s3api.endpoint_url $endpointUrl --profile $profile
 
 aws s3api create-bucket `
+    --bucket "${bucketName}-private" `
+    --profile $profile
+
+aws s3api create-bucket `
     --bucket $bucketName `
     --profile $profile
 

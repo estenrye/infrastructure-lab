@@ -20,7 +20,7 @@ ryezone_labs_lanDhcpRangeStart: 10.100.10.100
 ryezone_labs_lanDhcpRangeEnd: 10.100.10.250
 ryezone_labs_domain_suffix: local
 ryezone_labs_domain_organization: domain
-ryezone_labs_domain_controller_hostname: router
+ryezone_labs_domain_controller_hostname: dc
 ryezone_labs_top_level_domain: "{{ ryezone_labs_domain_organization }}.{{ ryezone_labs_domain_suffix }}"
 packer_init_desktop: false
 
