@@ -8,18 +8,18 @@ Push-Location ${PSScriptRoot}
 
 aws s3 sync build/certificates "s3://${bucketName}-private/certificates" --profile $profile
 
+if (-not (Test-Path build/certificates/private))
+{
+    New-Item -ItemType Directory build/certificates/private
+}
+
+if (-not (Test-Path build/certificates/public))
+{
+    New-Item -ItemType Directory build/certificates/public
+}
+
 if(-not (Test-Path build/certificates/public/domain.local.crt))
 {
-    if (-not (Test-Path build/certificates/private))
-    {
-        New-Item -ItemType Directory build/certificates/private
-    }
-
-    if (-not (Test-Path build/certificates/public))
-    {
-        New-Item -ItemType Directory build/certificates/public
-    }
-
     openssl genrsa -out build/certificates/private/ca.key 2048
     openssl req -new -x509 -days 365 `
         -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=Acme Root CA" `
@@ -44,6 +44,13 @@ if(-not (Test-Path build/certificates/public/domain.local.crt))
 
     aws s3 sync build/certificates "s3://${bucketName}-private/certificates" --profile $profile
     aws s3 sync build/certificates/public "s3://${bucketName}/certificates" --profile $profile
+}
+
+if (-not (Test-Path build/certificates/private/docker_id_rsa))
+{
+    ssh-keygen -f "build/certificates/private/docker_id_rsa" -t rsa -b 4096 -N '""'
+
+    aws s3 sync build/certificates "s3://${bucketName}-private/certificates" --profile $profile
 }
 
 Pop-Location

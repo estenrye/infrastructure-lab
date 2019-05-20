@@ -1,5 +1,5 @@
 {
-    "name": "ubuntu-1804-server",
+    "name": "ubuntu-server-1804",
     "version":"1804",
     "cpus": "2",
     "memory": "4096",

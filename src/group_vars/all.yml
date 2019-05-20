@@ -13,6 +13,8 @@ ryezone_labs_wanInterface: eth0
 ryezone_labs_lanInterface: eth1
 ryezone_labs_lanAddress: 10.100.10.1
 ryezone_labs_dcAddress:  10.100.10.2
+ryezone_labs_managerAddress: 10.100.10.3
+ryezone_labs_workerAddress: 10.100.10.4
 ryezone_labs_lanNetwork: 10.100.10.0
 ryezone_labs_lanNetmask: 255.255.255.0
 ryezone_labs_lanBroadcast: 10.100.10.255

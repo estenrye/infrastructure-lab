@@ -2,7 +2,7 @@
     "name":"router",
     "version": "1.0",
     "box":"estenrye/ubuntu-server-1804",
-    "box_version":"1804.20190512.0",
+    "box_version":"1804.20190520.053546",
     "provider":"hyperv",
     "playbook_file":"build/packer_templates/lab/router/router.yml",
     "galaxy_file":"build/packer_templates/lab/router/router.requirements.yml",

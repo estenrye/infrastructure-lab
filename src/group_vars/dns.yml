@@ -18,3 +18,11 @@ dns_bind_zones:
         class: IN
         type: A
         target: "{{ ryezone_labs_dcAddress }}"
+      - name: manager
+        class: IN
+        type: A
+        target: "{{ ryezone_labs_managerAddress }}"
+      - name: worker
+        class: IN
+        type: A
+        target: "{{ ryezone_labs_workerAddress }}"

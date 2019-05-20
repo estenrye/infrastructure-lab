@@ -32,6 +32,12 @@ dhcp_hosts:
   - name: dc
     mac_address: 00:35:10:00:00:02
     fixed_address: "{{ ryezone_labs_dcAddress }}"
+  - name: manager
+    mac_address: 00:35:10:00:00:03
+    fixed_address: "{{ ryezone_labs_managerAddress }}"
+  - name: worker
+    mac_address: 00:35:10:00:00:03
+    fixed_address: "{{ ryezone_labs_workerAddress }}"
 
 edge_firewall_open_incoming_tcp_ports:
   - cidr: 172.16.0.0/12

@@ -19,6 +19,24 @@ machines = {
     network: 'Private',
     hv_mac: '00:35:10:00:00:02',
   },
+  manager: {
+    box: 'estenrye/lab-docker',
+    box_version: '',
+    cpus: 2,
+    mem: 2048,
+    vmname: 'manager',
+    network: 'Private',
+    hv_mac: '00:35:10:00:00:03',
+  },
+  worker: {
+    box: 'estenrye/lab-docker',
+    box_version: '',
+    cpus: 2,
+    mem: 2048,
+    vmname: 'worker',
+    network: 'Private',
+    hv_mac: '00:35:10:00:00:04',
+  },
 }
 
 Vagrant.configure(vagrant_api_version) do |config|

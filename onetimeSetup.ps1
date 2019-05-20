@@ -60,3 +60,9 @@ Remove-Item $PSScriptRoot/policy.json
 [System.Environment]::SetEnvironmentVariable('VAGRANT_CLOUD_TOKEN', $vagrant_cloud_token, 'user')
 [System.Environment]::SetEnvironmentVariable('VAGRANT_CLOUD_USERNAME', $vagrant_cloud_username, 'user')
 [System.Environment]::SetEnvironmentVariable('VAGRANT_DEFAULT_PROVIDER', 'hyperv', 'user')
+
+# Ensure VM Switch Exists.
+if (-not (Get-VMSwitch -Name Private))
+{
+    New-VMSwitch -Name Private -SwitchType Internal
+}

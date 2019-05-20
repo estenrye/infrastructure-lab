@@ -1,11 +1,11 @@
 {
-    "name":"dc",
+    "name":"docker",
     "version": "1.0",
     "box":"estenrye/ubuntu-server-1804",
     "box_version":"1804.20190520.053546",
     "provider":"hyperv",
-    "playbook_file":"build/packer_templates/lab/dc/domain-controller.yml",
-    "galaxy_file":"build/packer_templates/lab/dc/domain-controller.requirements.yml",
+    "playbook_file":"build/packer_templates/lab/docker/docker.yml",
+    "galaxy_file":"build/packer_templates/lab/docker/docker.requirements.yml",
     "inventory_file":"src/inventory",
     "group_vars":"src/group_vars",
     "skip_add":"true"

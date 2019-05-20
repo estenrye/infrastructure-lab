@@ -7,6 +7,20 @@ router
 [domain_controller]
 dc
 
+[docker_managers]
+manager
+
+[docker_workers]
+worker
+
+[docker_standalone]
+docker
+
+[docker_hosts:children]
+docker_standalone
+docker_managers
+docker_workers
+
 [acs:children]
 lab
 
@@ -14,6 +28,7 @@ lab
 lab
 edge_gateway
 domain_controller
+docker_hosts
 
 [dns:children]
 lab

@@ -1,0 +1,18 @@
+---
+- hosts: all
+  roles:
+    - ryezone_labs.hosts
+    - ryezone_labs.ssh
+    - ryezone_labs.ntp
+    - ryezone_labs.trusted_certificates
+
+- hosts: docker_hosts
+  roles:
+    - mrlesmithjr.netplan
+    - ryezone_labs.docker
+  become: yes
+
+- hosts: all
+  roles:
+    - ryezone_labs.sssd
+    - ryezone_labs.packer_complete

@@ -1,0 +1,7 @@
+---
+docker_swarm_enabled: true
+docker_swarm_node_type: manager
+docker_swarm_initial_manager: 'manager.{{ ryezone_labs_top_level_domain }}'
+docker_swarm_initial_manager_ssh_username: 'dockerAuto'
+docker_swarm_initial_manager_ssh_private_key: 'build/certificates/private/docker_id_rsa'
+docker_swarm_initial_manager_ssh_public_key: 'build/certificates/private/docker_id_rsa.pub'
