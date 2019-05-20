@@ -17,6 +17,6 @@ if (-not (Get-VMNetworkAdapter -VMName router -Name LAN -ErrorAction SilentlyCon
     Start-VM router
 }
 
-vagrant up dc, manager, worker
+vagrant up dc manager worker
 
 Pop-Location
