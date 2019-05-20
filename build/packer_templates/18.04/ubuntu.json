@@ -15,12 +15,12 @@
       "output_directory": "build/images/{{user `name`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       
-      "cpus":"{{ user `cpus` }}",
+      "cpu":"{{ user `cpus` }}",
       "disk_size":"{{ user `disk_size` }}",
       "enable_dynamic_memory":true,
       "generation":2,
       "guest_additions_mode":"none",
-      "memory":"{{ user `memory` }}",
+      "ram_size":"{{ user `memory` }}",
       "switch_name": "{{ user `hyperv_switch_name` }}",
       "ssh_timeout": "1h",
       "boot_wait":"5s",
@@ -154,7 +154,8 @@
         "type": "vagrant",
         "compression_level": 9,
         "vagrantfile_template": "{{ user `vagrantfile_template` }}",
-        "output": "build/images/{{user `name`}}/{{ user `name` }}_{{ .Provider }}.box"
+        "output": "build/images/{{user `name`}}/{{ user `name` }}_{{ user `providerType` }}.box",
+        "keep_input_artifact":true
       },
       {
         "type": "manifest",
@@ -163,13 +164,13 @@
         "custom_data": {
           "vagrant_box_name": "{{user `name`}}",
           "vagrant_box_version": "{{user `version`}}.{{isotime \"20060102.150405\"}}",
-          "vagrant_provider_type":"{{ .Provider }}",
+          "vagrant_provider_type":"{{ user `providerType` }}",
           "vagrant_cloud_username":"estenrye",
           "vagrant_cloud_endpoint":"https://app.vagrantup.com/api/v1",
           "s3_endpoint":"https://s3.wasabisys.com",
           "s3_profile":"wasabi",
-          "box_src_path":"build/images/{{user `name`}}/{{ user `name` }}_{{ .Provider }}.box",
-          "s3_box_path": "s3://vagrant-cloud/{{user `name`}}/{{ .Provider }}-{{user `version`}}.{{isotime \"20060102.150405\"}}.box"
+          "box_src_path":"build/images/{{user `name`}}/{{ user `name` }}_{{ user `providerType` }}.box",
+          "s3_box_path": "s3://vagrant-cloud/{{user `name`}}/{{ user `providerType` }}-{{user `version`}}.{{isotime \"20060102.150405\"}}.box"
         }
       }
   ]
