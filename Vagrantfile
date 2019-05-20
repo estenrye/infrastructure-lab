@@ -36,5 +36,9 @@ Vagrant.configure(vagrant_api_version) do |config|
         hv.mac = info[:hv_mac] if info[:hv_mac]
       end
     end
+
+    # Disable NFS sharing (==> default: Mounting NFS shared folders...)
+    config.vm.synced_folder ".", "/vagrant", type: "nfs", disabled: true
+
   end
 end
