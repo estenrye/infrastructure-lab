@@ -36,7 +36,7 @@ dhcp_hosts:
     mac_address: 00:35:10:00:00:03
     fixed_address: "{{ ryezone_labs_managerAddress }}"
   - name: worker
-    mac_address: 00:35:10:00:00:03
+    mac_address: 00:35:10:00:00:04
     fixed_address: "{{ ryezone_labs_workerAddress }}"
 
 edge_firewall_open_incoming_tcp_ports:
