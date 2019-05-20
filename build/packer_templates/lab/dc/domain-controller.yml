@@ -8,6 +8,7 @@
 
 - hosts: domain_controllers
   roles:
+    - mrlesmithjr.netplan
     - ryezone_labs.domain_controller_slapd
   become: yes
 

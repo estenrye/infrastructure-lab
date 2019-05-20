@@ -4,7 +4,7 @@ vagrant_api_version = '2'
 machines = {
   router: {
     box: 'estenrye/lab-router',
-    box_version: '1.0.20190519.065646',
+    box_version: '1.0.20190519.192913',
     cpus: 2,
     mem: 2048,
     vmname: 'router',
@@ -12,7 +12,7 @@ machines = {
   },
   dc: {
     box: 'estenrye/lab-dc',
-    box_version: '1.0.20190519.071316',
+    box_version: '1.0.20190520.022000',
     cpus: 2,
     mem: 2048,
     vmname: 'dc',
@@ -28,6 +28,7 @@ Vagrant.configure(vagrant_api_version) do |config|
       machine.vm.box_version = info[:box_version] if info[:box_version]
       machine.vm.hostname = hostname
       machine.vm.network 'public_network', bridge: info[:network]
+      machine.vm.provision 'shell', inline: 'sudo netplan apply'
       machine.vm.provider 'hyperv' do |hv|
         hv.vmname = info[:vmname]
         hv.memory = info[:mem]

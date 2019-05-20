@@ -1,4 +1,6 @@
 # from galaxy
+- src: mrlesmithjr.netplan
+- src: ryezone_labs.dns
 - src: ryezone_labs.hosts
 - src: ryezone_labs.ntp
 - src: ryezone_labs.packer_complete
