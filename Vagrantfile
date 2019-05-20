@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 vagrant_api_version = '2'
 
+dev = false;
+
 machines = {
   router: {
     box: 'estenrye/lab-router',
-    box_version: '1.0.20190519.192913',
+    box_version:  if dev
+                    '0'
+                  else
+                    '1.0.20190520.072934'
+                  end,
     cpus: 2,
     mem: 2048,
     vmname: 'router',
@@ -12,7 +18,11 @@ machines = {
   },
   dc: {
     box: 'estenrye/lab-dc',
-    box_version: '1.0.20190520.022000',
+    box_version:  if dev
+                    '0'
+                  else
+                    '1.0.20190520.022000'
+                  end,
     cpus: 2,
     mem: 2048,
     vmname: 'dc',
@@ -21,7 +31,11 @@ machines = {
   },
   manager: {
     box: 'estenrye/lab-docker',
-    box_version: '',
+    box_version:  if dev
+                    '0'
+                  else
+                    '1.0.20190520.074038'
+                  end,
     cpus: 2,
     mem: 2048,
     vmname: 'manager',
@@ -30,7 +44,11 @@ machines = {
   },
   worker: {
     box: 'estenrye/lab-docker',
-    box_version: '',
+    box_version:  if dev
+                    '0'
+                  else
+                    '1.0.20190520.074038'
+                  end,
     cpus: 2,
     mem: 2048,
     vmname: 'worker',
@@ -57,6 +75,6 @@ Vagrant.configure(vagrant_api_version) do |config|
 
     # Disable NFS sharing (==> default: Mounting NFS shared folders...)
     config.vm.synced_folder ".", "/vagrant", type: "nfs", disabled: true
-
+    config.vm.boot_timeout = 60
   end
 end
