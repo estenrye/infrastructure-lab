@@ -1,9 +1,0 @@
-{
-  "name": "nexus",
-  "vagrant_box_name": "estenrye/ubuntu-server-1804",
-  "teardown_method":"destroy",
-  "vagrantfile_template": "Vagrantfile-vagrant.template",
-  "playbook_file":"../src/playbooks/nexus.yml",
-  "ssh_username": "vagrant",
-  "ssh_password": "vagrant"
-}
