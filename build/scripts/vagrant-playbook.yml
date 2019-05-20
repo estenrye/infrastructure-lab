@@ -4,7 +4,7 @@
   tasks:
     - name: Add Vagrant Insecure Key
       authorized_key:
-        key: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+        key: "{{ lookup('file', '/opt/ansible/vagrant.pub') }}"
         user: vagrant
         state: present
       become: yes

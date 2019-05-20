@@ -123,6 +123,11 @@
       ]
     },
     {
+      "type":"file",
+      "source":"build/packer_templates/vagrant.pub",
+      "destination":"/opt/ansible/vagrant.pub"
+    },
+    {
       "type":"ansible-local",
       "clean_staging_directory": false,
       "staging_directory": "/opt/ansible",
