@@ -33,7 +33,7 @@ if ($DebugPreference)
 else
 {
     $env:PACKER_LOG=0
-    $env:VAGRANT_LOG='info'
+    $env:VAGRANT_LOG='warn'
 }
 
 Push-Location ${PSScriptRoot}
