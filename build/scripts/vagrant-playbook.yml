@@ -40,6 +40,16 @@
         state: removed
       when: template_name == "ubuntu-1804-desktop"
       become: yes
+    - name: Set Grub Timeout to 1
+      lineinfile:
+        dest: /boot/grub/grub.cfg
+        state: present
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      become: yes
+      loop:
+        - { regexp: "timeout=30", line: "timeout=1" }
+        - { regexp: "timeout=30", line: "timeout=1" }
     - name: Apt Autoremove and Update
       apt:
         autoremove: yes
