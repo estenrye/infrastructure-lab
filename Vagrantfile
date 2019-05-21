@@ -9,7 +9,7 @@ machines = {
     box_version:  if dev
                     '0'
                   else
-                    '1.0.20190520.072934'
+                    '1.0.20190521.040826'
                   end,
     cpus: 2,
     mem: 2048,
@@ -21,7 +21,7 @@ machines = {
     box_version:  if dev
                     '0'
                   else
-                    '1.0.20190520.022000'
+                    '1.0.20190521.040834'
                   end,
     cpus: 2,
     mem: 2048,
@@ -34,7 +34,7 @@ machines = {
     box_version:  if dev
                     '0'
                   else
-                    '1.0.20190520.074038'
+                    '1.0.20190521.043754'
                   end,
     cpus: 2,
     mem: 2048,
