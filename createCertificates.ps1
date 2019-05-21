@@ -6,7 +6,12 @@ param(
 
 Push-Location ${PSScriptRoot}
 
-aws s3 sync build/certificates "s3://${bucketName}-private/certificates" --profile $profile
+if (-not (Test-Path build/certificates))
+{
+    New-Item -ItemType Directory build/certificates
+}
+
+aws s3 sync "s3://${bucketName}-private/certificates" build/certificates --profile $profile
 
 if (-not (Test-Path build/certificates/private))
 {
