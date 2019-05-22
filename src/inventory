@@ -1,6 +1,3 @@
-[lab]
-testall
-
 [edge_gateway]
 router
 
@@ -21,9 +18,6 @@ docker_standalone
 docker_managers
 docker_workers
 
-[acs:children]
-lab
-
 [all:children]
 lab
 edge_gateway
@@ -31,20 +25,13 @@ domain_controller
 docker_hosts
 
 [dns:children]
-lab
 edge_gateway
 
 [ntpd:children]
-lab
 edge_gateway
 
 [gateway:children]
-lab
 edge_gateway
 
-[docker:children]
-lab
-
 [domain_controllers:children]
-lab
 domain_controller

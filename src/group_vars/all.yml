@@ -3,6 +3,7 @@ ryezone_labs_provision_user: vagrant
 ansible_ssh_user: vagrant
 ansible_ssh_pass: vagrant
 
+hosts_hostname: "{{ ansible_hostname }}"
 ansible_ssh_private_key_file: /opt/.ssh/id_rsa
 ryezone_labs_public_key_path: /opt/.ssh/id_rsa.pub
 
