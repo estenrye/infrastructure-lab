@@ -9,7 +9,7 @@ machines = {
     box_version:  if dev
                     '0'
                   else
-                    '1.0.20190521.040826'
+                    '1.0.20190522.065210'
                   end,
     cpus: 2,
     mem: 2048,
