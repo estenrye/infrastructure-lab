@@ -1,0 +1,44 @@
+{
+  "Id": "Policy1558546842676",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1558546720506",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:DeleteObject",
+        "s3:GetBucketPolicy",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutBucketPolicy",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::osn-cloud-private",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::100000013213:group/osn-access-group"
+        ]
+      }
+    },
+    {
+      "Sid": "Stmt1558546830033",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:DeleteObject",
+        "s3:GetBucketPolicy",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutBucketPolicy",
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::osn-cloud",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::100000013213:group/osn-access-group"
+        ]
+      }
+    }
+  ]
+}
