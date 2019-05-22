@@ -1,0 +1,9 @@
+---
+docker_swarm_enabled: true
+docker_swarm_node_type: worker
+hostname: "{{ ansible_hostname }}"
+docker_swarm_initial_manager: '10.100.10.3'
+docker_swarm_initial_manager_ssh_username: 'vagrant'
+docker_swarm_initial_manager_ssh_private_key: '/opt/.ssh/id_rsa'
+docker_swarm_initial_manager_ssh_public_key: '/opt/.ssh/id_rsa.pub'
+sshd_provision_user_authorized_key: '/opt/.ssh/id_rsa.pub'

@@ -9,11 +9,14 @@ if ($PSVersionTable.PSVersion.Major -gt 5)
 
 Push-Location $PSScriptRoot
 
-vagrant up router
-vagrant halt router
-Add-VMNetworkAdapter -VMName router -SwitchName Private -Name LAN
-Start-VM router
+if (-not (Get-VMNetworkAdapter -VMName router -Name LAN -ErrorAction SilentlyContinue))
+{
+    vagrant up router
+    vagrant halt router
+    Add-VMNetworkAdapter -VMName router -SwitchName Private -Name LAN
+    Start-VM router
+}
 
-vagrant up dc
+vagrant up
 
 Pop-Location

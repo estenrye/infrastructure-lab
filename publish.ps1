@@ -49,6 +49,12 @@ if ($PSVersionTable.PSVersion.Major -lt 6)
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+vagrant box add `
+  --name "${vagrant_cloud_username}/${vagrant_box_name}" `
+  --provider ${vagrant_provider_type} `
+  --force `
+  $data.box_src_path
+
 if (${upload} -or ${all})
 {
   Write-Debug $(@{

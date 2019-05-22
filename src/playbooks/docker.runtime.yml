@@ -1,0 +1,8 @@
+---
+- hosts: docker_managers, docker_workers
+  connection: local
+  roles:
+    - ryezone_labs.hosts
+    - ryezone_labs.ssh
+    - ryezone_labs.docker
+  become: yes
