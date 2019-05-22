@@ -1,0 +1,78 @@
+---
+version: '3.7'
+networks:
+  public:
+    external: true
+  private:
+    external: true
+services:
+  traefik:
+    image: traefik:1.7.5
+    command:
+      - "--api"
+      - "--entrypoints=Name:http Address::80"
+      - "--entrypoints=Name:traefik Address::8080"
+      - "--defaultentrypoints=http"
+      - "--docker"
+      - "--docker.swarmmode=true"
+      - "--docker.domain=domain.local"
+      - "--docker.exposedbydefault=false"
+      - "--docker.watch=true"
+      - "--debug=true"
+    ports:
+      - target: 80
+        published: 80
+        mode: ingress
+      - target: 8080
+        published: 8080
+        mode: ingress
+    networks:
+      - public
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 30s
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 120s
+      placement:
+        constraints:
+          - node.role == manager
+  wordpress:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.port=80
+        - traefik.frontend.rule=Host:blog.domain.local
+        - traefik.docker.network=public
+        - traefik.backend=wordpress-backend
+      # placement:
+      #   constraints:
+          # - node.role == worker
+    networks:
+      - public
+      - private
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    deploy:
+      # placement:
+      #   constraints:
+          # - node.role == worker
+    networks:
+      - private
