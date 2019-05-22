@@ -66,3 +66,5 @@ if (-not (Get-VMSwitch -Name Private))
 {
     New-VMSwitch -Name Private -SwitchType Internal
 }
+
+./createCertificates.ps1
